@@ -18,7 +18,7 @@ Surgical action triplets describe instrument-tissue interactions as (instrument,
 
 <br>
 
-## Pre-requisities
+## Pre-requisites
 * Download the CholecT50 dataset from https://github.com/CAMMA-public/cholect50.
 * Install [ivtmetrics](https://github.com/CAMMA-public/ivtmetrics) for evaluation.
 * For more details on the splits, please refer the paper [Data Splits and Metrics](https://arxiv.org/abs/2204.05235).
@@ -32,6 +32,10 @@ Surgical action triplets describe instrument-tissue interactions as (instrument,
 
 <br>
 
+## Pseudo Triplet label Setup 
+Generates pseudo triplet labels based on detected instrument instances and publicly released CholecT50 triplet binary presence labels.
+**Coming Soon**
+
 ## Training Details
 MCIT-IG has been trained on `Nvidia V100 GPU` with `CUDA version 10.2`. Run the script below to launch training. Currently, the model is adapted to train only on one GPU.
 ```bash
@@ -41,7 +45,7 @@ bash train.sh
 <br>
 
 ## Evaluation 
-TBD
+Evaluation is on the private test set containing instrument localization + box-triplet association. (To be released in future)
 
 <br>
 
