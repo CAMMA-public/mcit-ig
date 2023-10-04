@@ -4,7 +4,7 @@
 
 This is the official implementation of MCIT-IG in PyTorch.
 
-[![arXiv](https://img.shields.io/badge/arxiv.org/abs/2307.09548.svg?style=flat)](https://arxiv.org/abs/2307.09548)
+[![arXiv](https://img.shields.io/badge/arXiv-1234.56789-f9f107.svg)](https://arxiv.org/abs/2307.09548)
 
 ## News
 * [05/10/2023] Release of code in PyTorch for training and evaluation.
@@ -13,7 +13,8 @@ This is the official implementation of MCIT-IG in PyTorch.
 Surgical action triplets describe instrument-tissue interactions as (instrument, verb, target) combinations, thereby supporting a detailed analysis of surgical scene activities and workflow. This work focuses on surgical action triplet detection, which is challenging but more precise than the traditional triplet recognition task as it consists of joint (1) localization of surgical instruments and (2) recognition of the surgical action triplet associated with every localized instrument. Triplet detection is highly complex due to the lack of spatial triplet annotation. We analyze how the amount of instrument spatial annotations affects triplet detection and observe that accurate instrument localization does not guarantee better triplet detection due to the risk of erroneous associations with the verbs and targets. To solve the two tasks, we propose MCIT-IG, a two-stage network, that stands for Multi-Class Instrument-aware Transformer-Interaction Graph. The MCIT stage of our network models per class embedding of the targets as additional features to reduce the risk of misassociating triplets. Furthermore, the IG stage constructs a bipartite dynamic graph to model the interaction between the instruments and targets, cast as the verbs. We utilize a mixed-supervised learning strategy that combines weak target presence labels for MCIT and pseudo triplet labels for IG to train our network. We observed that complementing minimal instrument spatial annotations with target embeddings results in better triplet detection. We evaluate our model on the CholecT50 dataset and show improved performance on both instrument localization and triplet detection, topping the leaderboard of the CholecTriplet challenge in MICCAI 2022. 
 
 ## Model Overview
-![MCIT_IG](media/rit_model.jpg)
+![MCIT-IG](media/main_model.jpg)
+
 
 <br>
 
@@ -21,6 +22,8 @@ Surgical action triplets describe instrument-tissue interactions as (instrument,
 * Download the CholecT50 dataset from https://github.com/CAMMA-public/cholect50.
 * Install [ivtmetrics](https://github.com/CAMMA-public/ivtmetrics) for evaluation.
 * For more details on the splits, please refer the paper [Data Splits and Metrics](https://arxiv.org/abs/2204.05235).
+
+<br>
 
 ## Libraries required
 * dgl     : 1.0.0+cuda102
