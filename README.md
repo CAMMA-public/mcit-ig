@@ -1,92 +1,72 @@
-# mcit-ig
+# MCIT-IG: Surgical Action Triplet Detection by Mixed Supervised Learning of Instrument-Tissue Interactions (MICCAI 2023)
 
+<i>S. Sharma, C. I. Nwoye, D. Mutter, N. Padoy</i>
 
+This is the official implementation of MCIT-IG in PyTorch.
 
-## Getting started
+[![arXiv](https://img.shields.io/badge/arxiv.org/abs/2307.09548.svg?style=flat)](https://arxiv.org/abs/2307.09548)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## News
+* [05/10/2023] Release of code in PyTorch for training and evaluation.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## Abstract
+Surgical action triplets describe instrument-tissue interactions as (instrument, verb, target) combinations, thereby supporting a detailed analysis of surgical scene activities and workflow. This work focuses on surgical action triplet detection, which is challenging but more precise than the traditional triplet recognition task as it consists of joint (1) localization of surgical instruments and (2) recognition of the surgical action triplet associated with every localized instrument. Triplet detection is highly complex due to the lack of spatial triplet annotation. We analyze how the amount of instrument spatial annotations affects triplet detection and observe that accurate instrument localization does not guarantee better triplet detection due to the risk of erroneous associations with the verbs and targets. To solve the two tasks, we propose MCIT-IG, a two-stage network, that stands for Multi-Class Instrument-aware Transformer-Interaction Graph. The MCIT stage of our network models per class embedding of the targets as additional features to reduce the risk of misassociating triplets. Furthermore, the IG stage constructs a bipartite dynamic graph to model the interaction between the instruments and targets, cast as the verbs. We utilize a mixed-supervised learning strategy that combines weak target presence labels for MCIT and pseudo triplet labels for IG to train our network. We observed that complementing minimal instrument spatial annotations with target embeddings results in better triplet detection. We evaluate our model on the CholecT50 dataset and show improved performance on both instrument localization and triplet detection, topping the leaderboard of the CholecTriplet challenge in MICCAI 2022. 
 
-## Add your files
+## Model Overview
+![MCIT_IG](media/rit_model.jpg)
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+<br>
 
+## Pre-requisities
+* Download the CholecT50 dataset from https://github.com/CAMMA-public/cholect50.
+* Install [ivtmetrics](https://github.com/CAMMA-public/ivtmetrics) for evaluation.
+* For more details on the splits, please refer the paper [Data Splits and Metrics](https://arxiv.org/abs/2204.05235).
+
+## Libraries required
+* dgl     : 1.0.0+cuda102
+* pytorch : 1.12.0
+* numpy   : 1.21.0
+
+<br>
+
+## Training Details
+MCIT-IG has been trained on `Nvidia V100 GPU` with `CUDA version 10.2`. Run the script below to launch training. Currently, the model is adapted to train only on one GPU.
+```bash
+bash train.sh
 ```
-cd existing_repo
-git remote add origin https://forge.icube.unistra.fr/CAMMA/code/weak_sup_endo/mcit-ig.git
-git branch -M main
-git push -uf origin main
-```
 
-## Integrate with your tools
+<br>
 
-- [ ] [Set up project integrations](https://forge.icube.unistra.fr/CAMMA/code/weak_sup_endo/mcit-ig/-/settings/integrations)
+## Evaluation 
+TBD
 
-## Collaborate with your team
+<br>
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+## Acknowledgements
+This work was supported by French state funds managed by the ANR within the National AI
+Chair program under Grant ANR-20-CHIA-0029-01 (Chair AI4ORSafety) and within the Investments for the future
+program under Grant ANR-10-IAHU-02 (IHU Strasbourg). It was also supported by BPI France under reference
+DOS0180017/00 (project 5G-OR). It was granted access to the HPC resources of Unistra Mesocentre and GENCI-IDRIS
+(Grant AD011013710).
 
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+<br>
 
 ## License
-For open source projects, say how it is licensed.
+This code, models, and datasets are available for non-commercial scientific research purposes as defined in the [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/). By downloading and using this code you agree to the terms in the [LICENSE](LICENSE). Third-party codes are subject to their respective licenses.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+
+## References
+If you find MCIT-IG useful in your research, please use the following BibTeX entry for citation.
+
+```bibtex
+@article{sharma2023surgical,
+      title={Surgical Action Triplet Detection by Mixed Supervised Learning of Instrument-Tissue Interactions}, 
+      author={Saurav Sharma and Chinedu Innocent Nwoye and Didier Mutter and Nicolas Padoy},
+      year={2023},
+      eprint={2307.09548},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+```
+
+
